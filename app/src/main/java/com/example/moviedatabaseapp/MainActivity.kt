@@ -3,12 +3,11 @@ package com.example.moviedatabaseapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.*
 import androidx.navigation.compose.*
 import androidx.navigation.compose.rememberNavController
 import com.example.moviedatabaseapp.data.MovieDatabase
-import com.example.moviedatabaseapp.screens.AddMoviesScreen
 import com.example.moviedatabaseapp.screens.MainScreen
+import com.example.moviedatabaseapp.screens.SearchActorsScreen
 import com.example.moviedatabaseapp.screens.SearchMovieScreen
 
 class MainActivity : ComponentActivity() {
@@ -23,13 +22,13 @@ class MainActivity : ComponentActivity() {
 
             NavHost(navController = navController, startDestination = "main") {
                 composable("main") {
-                    MainScreen(navController = navController)
-                }
-                composable("addMovies") {
-                    AddMoviesScreen(movieDao = movieDao, navController = navController)
+                    MainScreen(navController = navController, movieDao = movieDao)
                 }
                 composable("searchMovie") {
                     SearchMovieScreen(movieDao = movieDao)
+                }
+                composable("searchActors") {
+                    SearchActorsScreen(movieDao = movieDao, navController = navController)
                 }
             }
         }

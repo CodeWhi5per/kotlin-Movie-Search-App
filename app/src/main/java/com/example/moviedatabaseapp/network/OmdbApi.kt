@@ -22,6 +22,7 @@ suspend fun getMovieFromApi(title: String): MovieApiResponse? = withContext(Disp
 
         if (json.getString("Response") == "True") {
             MovieApiResponse(
+                imdbID = json.getString("imdbID"),
                 title = json.getString("Title"),
                 year = json.getString("Year"),
                 rated = json.getString("Rated"),

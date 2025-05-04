@@ -1,6 +1,7 @@
 package com.example.moviedatabaseapp.data
 
 data class MovieApiResponse(
+    val imdbID: String,
     val title: String,
     val year: String,
     val rated: String,
@@ -12,4 +13,6 @@ data class MovieApiResponse(
     val actors: String,
     val plot: String,
     val poster: String
-)
+) {
+
+}

@@ -59,6 +59,7 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                 movieResult?.let {
                     scope.launch {
                         val movieEntity = Movie(
+                            imdbID = it.imdbID,
                             title = it.title,
                             year = it.year,
                             rated = it.rated,
