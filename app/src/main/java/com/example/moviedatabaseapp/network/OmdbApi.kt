@@ -46,3 +46,44 @@ suspend fun getMovieFromApi(title: String): MovieApiResponse? = withContext(Disp
         connection.disconnect()
     }
 }
+
+suspend fun searchMoviesByTitle(query: String): List<MovieApiResponse> = withContext(Dispatchers.IO) {
+    val apiKey = "def7327"
+    val url = URL("http://www.omdbapi.com/?s=${URLEncoder.encode(query, "UTF-8")}&apikey=$apiKey")
+    val connection = url.openConnection() as HttpURLConnection
+
+    return@withContext try {
+        val response = connection.inputStream.bufferedReader().readText()
+        Log.d("API_RESPONSE", response)
+        val json = JSONObject(response)
+
+        if (json.getString("Response") == "True") {
+            val searchResults = json.getJSONArray("Search")
+            List(searchResults.length()) { index ->
+                val movie = searchResults.getJSONObject(index)
+                MovieApiResponse(
+                    imdbID = movie.getString("imdbID"),
+                    title = movie.getString("Title"),
+                    year = movie.getString("Year"),
+                    rated = "",
+                    released = "",
+                    runtime = "",
+                    genre = "",
+                    director = "",
+                    writer = "",
+                    actors = "",
+                    plot = "",
+                    poster = movie.getString("Poster")
+                )
+            }
+        } else {
+            Log.e("API_ERROR", "Error: ${json.getString("Error")}")
+            emptyList()
+        }
+    } catch (e: Exception) {
+        Log.e("API_ERROR", "Exception: ${e.message}")
+        emptyList()
+    } finally {
+        connection.disconnect()
+    }
+}

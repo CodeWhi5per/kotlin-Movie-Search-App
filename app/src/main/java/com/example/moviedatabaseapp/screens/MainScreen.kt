@@ -113,5 +113,8 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
         Button(onClick = { navController.navigate("searchActors") }) {
             Text("Search for Actors")
         }
+        Button(onClick = { navController.navigate("searchByTitle") }) {
+            Text("Search Movies by Title")
+        }
     }
 }

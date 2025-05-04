@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.moviedatabaseapp.data.MovieDatabase
 import com.example.moviedatabaseapp.screens.MainScreen
 import com.example.moviedatabaseapp.screens.SearchActorsScreen
+import com.example.moviedatabaseapp.screens.SearchByTitleScreen
 import com.example.moviedatabaseapp.screens.SearchMovieScreen
 
 class MainActivity : ComponentActivity() {
@@ -29,6 +30,9 @@ class MainActivity : ComponentActivity() {
                 }
                 composable("searchActors") {
                     SearchActorsScreen(movieDao = movieDao, navController = navController)
+                }
+                composable("searchByTitle") {
+                    SearchByTitleScreen(navController = navController)
                 }
             }
         }
