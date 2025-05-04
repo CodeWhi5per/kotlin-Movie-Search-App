@@ -1,6 +1,7 @@
 package com.example.moviedatabaseapp.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -8,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -22,43 +24,49 @@ fun SearchByTitleScreen(navController: NavController) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Top
+            .background(Color.Black)
     ) {
-        OutlinedTextField(
-            value = query,
-            onValueChange = { query = it },
-            label = { Text("Enter Movie Title") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Top
+        ) {
+            OutlinedTextField(
+                value = query,
+                onValueChange = { query = it },
+                label = { Text("Enter Movie Title") },
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-        Button(onClick = {
-            scope.launch {
-                if (query.isNotBlank()) {
-                    val movies = searchMoviesByTitle(query)
-                    if (movies.isNotEmpty()) {
-                        searchResults = movies
+            Button(onClick = {
+                scope.launch {
+                    if (query.isNotBlank()) {
+                        val movies = searchMoviesByTitle(query)
+                        if (movies.isNotEmpty()) {
+                            searchResults = movies
+                        } else {
+                            Toast.makeText(context, "No movies found", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
-                        Toast.makeText(context, "No movies found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Please enter a valid query", Toast.LENGTH_SHORT).show()
                     }
-                } else {
-                    Toast.makeText(context, "Please enter a valid query", Toast.LENGTH_SHORT).show()
                 }
+            }) {
+                Text("Search")
             }
-        }) {
-            Text("Search")
-        }
 
-        Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-        LazyColumn {
-            items(searchResults) { movie ->
-                MovieItem(movie)
+            LazyColumn {
+                items(searchResults) { movie ->
+                    MovieItem(movie)
+                }
             }
         }
     }

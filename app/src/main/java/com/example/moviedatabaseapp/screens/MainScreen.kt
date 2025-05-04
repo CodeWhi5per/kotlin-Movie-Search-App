@@ -1,12 +1,14 @@
 package com.example.moviedatabaseapp.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -92,29 +94,35 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(Color.Black)
     ) {
-        Button(onClick = {
-            scope.launch {
-                movieDao.insertAll(hardcodedMovies)
-                Toast.makeText(context, "Movies added to DB", Toast.LENGTH_SHORT).show()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Button(onClick = {
+                scope.launch {
+                    movieDao.insertAll(hardcodedMovies)
+                    Toast.makeText(context, "Movies added to DB", Toast.LENGTH_SHORT).show()
+                }
+            }) {
+                Text("Add Movies to DB")
             }
-        }) {
-            Text("Add Movies to DB")
-        }
-        Button(onClick = { navController.navigate("searchMovie") }) {
-            Text("Search for Movies")
-        }
-        Button(onClick = { navController.navigate("searchActors") }) {
-            Text("Search for Actors")
-        }
-        Button(onClick = { navController.navigate("searchByTitle") }) {
-            Text("Search Movies by Title")
+            Button(onClick = { navController.navigate("searchMovie") }) {
+                Text("Search for Movies")
+            }
+            Button(onClick = { navController.navigate("searchActors") }) {
+                Text("Search for Actors")
+            }
+            Button(onClick = { navController.navigate("searchByTitle") }) {
+                Text("Search Movies by Title")
+            }
         }
     }
 }
