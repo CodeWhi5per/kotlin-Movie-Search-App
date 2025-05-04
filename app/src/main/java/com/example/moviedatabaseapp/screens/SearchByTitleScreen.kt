@@ -18,11 +18,20 @@ import com.example.moviedatabaseapp.network.searchMoviesByTitle
 import kotlinx.coroutines.launch
 
 @Composable
-fun SearchByTitleScreen(navController: NavController) {
-    var query by rememberSaveable { mutableStateOf("") }
+fun SearchByTitleScreen(navController: NavController, initialQuery: String) {
+    var query by rememberSaveable { mutableStateOf(initialQuery) }
     var searchResults by remember { mutableStateOf<List<MovieApiResponse>>(emptyList()) }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(initialQuery) {
+        if (initialQuery.isNotBlank()) {
+            scope.launch {
+                val movies = searchMoviesByTitle(initialQuery)
+                searchResults = movies
+            }
+        }
+    }
 
     Box(
         modifier = Modifier

@@ -31,8 +31,9 @@ class MainActivity : ComponentActivity() {
                 composable("searchActors") {
                     SearchActorsScreen(movieDao = movieDao, navController = navController)
                 }
-                composable("searchByTitle") {
-                    SearchByTitleScreen(navController = navController)
+                composable("searchByTitle?query={query}") { backStackEntry ->
+                    val query = backStackEntry.arguments?.getString("query") ?: ""
+                    SearchByTitleScreen(navController = navController, initialQuery = query)
                 }
             }
         }

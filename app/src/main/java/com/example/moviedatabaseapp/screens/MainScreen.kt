@@ -1,20 +1,34 @@
 package com.example.moviedatabaseapp.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.moviedatabaseapp.R
 import com.example.moviedatabaseapp.data.Movie
 import com.example.moviedatabaseapp.data.MovieDao
 import kotlinx.coroutines.launch
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 
 val hardcodedMovies = listOf(
     Movie(
@@ -93,6 +107,7 @@ val hardcodedMovies = listOf(
 fun MainScreen(navController: NavController, movieDao: MovieDao) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
 
     Box(
         modifier = Modifier
@@ -103,25 +118,110 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(onClick = {
-                scope.launch {
-                    movieDao.insertAll(hardcodedMovies)
-                    Toast.makeText(context, "Movies added to DB", Toast.LENGTH_SHORT).show()
+            Spacer(modifier = Modifier.height(100.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.background),
+                contentDescription = "Background Image",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .width(700.dp)
+                    .height(280.dp)
+            )
+
+            Spacer(modifier = Modifier.height(50.dp))
+
+            // Add TextField
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                OutlinedTextField(
+                    value = searchQuery,
+                    modifier = Modifier.height(50.dp),
+                    onValueChange = { searchQuery = it },
+                    placeholder = { Text("SEARCH") },
+                    colors = TextFieldDefaults.colors(
+                        unfocusedTextColor = Color.White,
+                        focusedTextColor = Color.White,
+                        focusedContainerColor = Color(0xFF212121),
+                        unfocusedContainerColor = Color(0xFF212121),
+                        cursorColor = Color.White,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(50.dp)
+                )
+
+                Spacer(modifier = Modifier.width(20.dp))
+
+                Button(
+                    onClick = {
+                        navController.navigate("searchByTitle?query=${searchQuery.text}")
+                    },
+                    modifier = Modifier.size(50.dp), // Make the button square
+                    shape = RoundedCornerShape(30),
+                    contentPadding = PaddingValues(0.dp), // Remove internal padding
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF009DFF), // Set background color
+                        contentColor = Color.White // Set content (icon) color
+                    )
+                ) {
+                    Icon(
+                        Icons.Filled.Search,
+                        contentDescription = "Search Icon",
+                        modifier = Modifier.size(30.dp) // Set the icon size
+                    )
                 }
-            }) {
-                Text("Add Movies to DB")
             }
-            Button(onClick = { navController.navigate("searchMovie") }) {
-                Text("Search for Movies")
-            }
-            Button(onClick = { navController.navigate("searchActors") }) {
-                Text("Search for Actors")
-            }
-            Button(onClick = { navController.navigate("searchByTitle") }) {
-                Text("Search Movies by Title")
+
+            Spacer(modifier = Modifier.height(50.dp))
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button(
+                    onClick = {
+                        scope.launch {
+                            movieDao.insertAll(hardcodedMovies)
+                            Toast.makeText(context, "Movies added to DB", Toast.LENGTH_SHORT).show()
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF009DFF), // Set background color
+                        contentColor = Color.White // Set text color
+                    ),
+                    modifier = Modifier.width(250.dp).height(50.dp),
+                ) {
+                    Text("ADD MOVIES TO DB", fontSize = 15.sp)
+                }
+                Button(
+                    onClick = { navController.navigate("searchMovie") },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF009DFF), // Set background color
+                        contentColor = Color.White // Set text color
+                    ),
+                    modifier = Modifier.width(250.dp).height(50.dp),
+                ) {
+                    Text("SEARCH FOR MOVIES", fontSize = 15.sp)
+                }
+                Button(
+                    onClick = { navController.navigate("searchActors") },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF009DFF), // Set background color
+                        contentColor = Color.White // Set text color
+
+                    ),
+                    modifier = Modifier.width(250.dp).height(50.dp),
+                ) {
+                    Text(text = "SEARCH FOR ACTORS", fontSize = 15.sp)
+                }
             }
         }
     }
