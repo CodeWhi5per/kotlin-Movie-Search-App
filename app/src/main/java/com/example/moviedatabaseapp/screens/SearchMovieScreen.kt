@@ -68,7 +68,8 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                             director = it.director,
                             writer = it.writer,
                             actors = it.actors,
-                            plot = it.plot
+                            plot = it.plot,
+                            poster = it.poster
                         )
                         movieDao.insertAll(listOf(movieEntity))
                         Toast.makeText(context, "Movie saved to DB", Toast.LENGTH_SHORT).show()
