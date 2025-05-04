@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 
 val hardcodedMovies = listOf(
     Movie(
-        imdbID = "tt0111161",
         title = "The Shawshank Redemption",
         year = "1994",
         rated = "R",
@@ -26,7 +25,6 @@ val hardcodedMovies = listOf(
         plot = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
     ),
     Movie(
-        imdbID = "tt2313197",
         title = "Batman: The Dark Knight Returns, Part 1",
         year = "2012",
         rated = "PG-13",
@@ -39,7 +37,6 @@ val hardcodedMovies = listOf(
         plot = "Batman has not been seen for ten years. A new breed of criminal ravages Gotham City, forcing 55-year-old Bruce Wayne back into the cape and cowl. But, does he still have what it takes to fight crime in a new era?"
     ),
     Movie(
-        imdbID = "tt0167260",
         title = "The Lord of the Rings: The Return of the King",
         year = "2003",
         rated = "PG-13",
@@ -52,7 +49,6 @@ val hardcodedMovies = listOf(
         plot = "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring."
     ),
     Movie(
-        imdbID = "tt1375666",
         title = "Inception",
         year = "2010",
         rated = "PG-13",
@@ -65,7 +61,6 @@ val hardcodedMovies = listOf(
         plot = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster."
     ),
     Movie(
-        imdbID = "tt0133093",
         title = "The Matrix",
         year = "1999",
         rated = "R",
