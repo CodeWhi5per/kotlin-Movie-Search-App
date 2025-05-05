@@ -144,9 +144,26 @@ fun MovieItem(movie: MovieApiResponse) {
                         color = Color.White,
                         fontSize = 20.sp
                     )
-                    Text(movie.year, style = MaterialTheme.typography.bodyMedium, color = Color.White)
-                    Text(movie.genre, style = MaterialTheme.typography.bodySmall, color = Color.White)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Runtime: ${movie.runtime}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "Director: ${movie.director}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.White
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = movie.year,
+                            fontSize = 15.sp,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = Color.White
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
                         Icon(
                             imageVector = Icons.Default.Star,
                             contentDescription = "Star Icon",
@@ -156,6 +173,7 @@ fun MovieItem(movie: MovieApiResponse) {
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = movie.imdbRating,
+                            fontSize = 15.sp,
                             style = MaterialTheme.typography.bodySmall,
                             color = Color.White
                         )
