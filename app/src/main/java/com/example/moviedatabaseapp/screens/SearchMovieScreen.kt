@@ -6,7 +6,10 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -107,10 +110,10 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                             contentColor = Color.White
                         ),
                         modifier = Modifier
-                            .width(150.dp)
+                            .width(200.dp)
                             .height(50.dp)
                     ) {
-                        Text("Retrieve Movie", fontSize = 15.sp)
+                        Text("RETRIEVE MOVIE", fontSize = 15.sp)
                     }
                 }
             }
@@ -118,67 +121,215 @@ fun SearchMovieScreen(movieDao: MovieDao) {
             Spacer(modifier = Modifier.height(20.dp))
 
             movieResult?.let {
-                posterBitmap?.let { bitmap ->
-                    Image(
-                        bitmap = bitmap.asImageBitmap(),
-                        contentDescription = "Movie Poster",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(300.dp)
-                    )
-                }
-                Spacer(modifier = Modifier.height(10.dp))
-                Text("Title: ${it.title}", color = Color.White)
-                Text("Year: ${it.year}", color = Color.White)
-                Text("Rated: ${it.rated}", color = Color.White)
-                Text("Released: ${it.released}", color = Color.White)
-                Text("Runtime: ${it.runtime}", color = Color.White)
-                Text("Genre: ${it.genre}", color = Color.White)
-                Text("Director: ${it.director}", color = Color.White)
-                Text("Writer: ${it.writer}", color = Color.White)
-                Text("Actors: ${it.actors}", color = Color.White)
-                Text("Plot: ${it.plot}", color = Color.White)
-            }
-        }
-
-        Button(
-            onClick = {
-                movieResult?.let {
-                    scope.launch {
-                        val movieEntity = Movie(
-                            imdbID = it.imdbID,
-                            title = it.title,
-                            year = it.year,
-                            rated = it.rated,
-                            released = it.released,
-                            runtime = it.runtime,
-                            genre = it.genre,
-                            director = it.director,
-                            writer = it.writer,
-                            actors = it.actors,
-                            plot = it.plot,
-                            poster = it.poster
-                        )
-                        movieDao.insertAll(listOf(movieEntity))
-                        Toast.makeText(context, "Movie saved to DB", Toast.LENGTH_SHORT).show()
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    item {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color(0xFF1B1A1A)),
+                            shape = RoundedCornerShape(15.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(15.dp)) {
+                                posterBitmap?.let { bitmap ->
+                                    Image(
+                                        bitmap = bitmap.asImageBitmap(),
+                                        contentDescription = "Movie Poster",
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(300.dp)
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(30.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Text(
+                                        text = "Title:",
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.width(100.dp) // Adjust width for alignment
+                                    )
+                                    Text(
+                                        text = it.title,
+                                        color = Color.Gray,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Text(
+                                        text = "Year:",
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.width(100.dp)
+                                    )
+                                    Text(
+                                        text = it.year,
+                                        color = Color.Gray,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Text(
+                                        text = "Rated:",
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.width(100.dp)
+                                    )
+                                    Text(
+                                        text = it.rated,
+                                        color = Color.Gray,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Text(
+                                        text = "Released:",
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.width(100.dp)
+                                    )
+                                    Text(
+                                        text = it.released,
+                                        color = Color.Gray,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Text(
+                                        text = "Runtime:",
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.width(100.dp)
+                                    )
+                                    Text(
+                                        text = it.runtime,
+                                        color = Color.Gray,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Text(
+                                        text = "Genre:",
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.width(100.dp)
+                                    )
+                                    Text(
+                                        text = it.genre,
+                                        color = Color.Gray,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Text(
+                                        text = "Director:",
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.width(100.dp)
+                                    )
+                                    Text(
+                                        text = it.director,
+                                        color = Color.Gray,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Text(
+                                        text = "Writer:",
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.width(100.dp)
+                                    )
+                                    Text(
+                                        text = it.writer,
+                                        color = Color.Gray,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(15.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Text(
+                                        text = "Actors:",
+                                        color = Color.White,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.width(100.dp)
+                                    )
+                                    Text(
+                                        text = it.actors,
+                                        color = Color.Gray,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(30.dp))
+                                Row(verticalAlignment = Alignment.Top) {
+                                    Icon(
+                                        imageVector = Icons.Default.Star,
+                                        contentDescription = "Plot Icon",
+                                        tint = Color(0xFFFF9800),
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
+                                    Text(
+                                        text = it.plot,
+                                        color = Color.White,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(30.dp))
+                                Button(
+                                    onClick = {
+                                        scope.launch {
+                                            val movieEntity = Movie(
+                                                imdbID = it.imdbID,
+                                                title = it.title,
+                                                year = it.year,
+                                                rated = it.rated,
+                                                released = it.released,
+                                                runtime = it.runtime,
+                                                genre = it.genre,
+                                                director = it.director,
+                                                writer = it.writer,
+                                                actors = it.actors,
+                                                plot = it.plot,
+                                                poster = it.poster
+                                            )
+                                            movieDao.insertAll(listOf(movieEntity))
+                                            Toast.makeText(context, "Movie saved to DB", Toast.LENGTH_SHORT).show()
+                                        }
+                                    },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(0xFF14BB00),
+                                        contentColor = Color.White
+                                    ),
+                                    shape = RoundedCornerShape(15.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(50.dp)
+                                ) {
+                                    Text("SAVE MOVIE TO DATABASE", fontSize = 18.sp)
+                                }
+                            }
+                        }
                     }
                 }
-            },
-            enabled = movieResult != null,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = if (movieResult != null) Color(0xFF01D00C) else Color.Gray,
-                contentColor = Color.White,
-                disabledContainerColor = Color.DarkGray,
-                disabledContentColor = Color.LightGray
-            ),
-            shape = RoundedCornerShape(50.dp),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp)
-                .width(250.dp)
-                .height(50.dp)
-        ) {
-            Text("SAVE MOVIE TO DATABASE", fontSize = 15.sp)
+            }
         }
     }
 }
