@@ -156,7 +156,7 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent
                     ),
-                    shape = RoundedCornerShape(50.dp)
+                    shape = RoundedCornerShape(20.dp)
                 )
 
                 Spacer(modifier = Modifier.width(10.dp))
@@ -166,7 +166,7 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
                         navController.navigate("searchByTitle?query=${searchQuery.text}")
                     },
                     modifier = Modifier.size(56.dp), // Make the button square
-                    shape = RoundedCornerShape(30),
+                    shape = RoundedCornerShape(20),
                     contentPadding = PaddingValues(0.dp), // Remove internal padding
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF009DFF), // Set background color
@@ -176,7 +176,7 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
                     Icon(
                         Icons.Filled.Search,
                         contentDescription = "Search Icon",
-                        modifier = Modifier.size(30.dp) // Set the icon size
+                        modifier = Modifier.size(35.dp) // Set the icon size
                     )
                 }
             }

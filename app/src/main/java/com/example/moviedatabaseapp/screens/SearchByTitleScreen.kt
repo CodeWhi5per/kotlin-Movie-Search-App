@@ -61,38 +61,69 @@ fun SearchByTitleScreen(navController: NavController, initialQuery: String) {
             ) {
                 Text(
                     text = "DISCOVER MOVIES",
-                    fontSize = 25.sp,
+                    fontSize = 30.sp,
                     color = Color.White,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            OutlinedTextField(
-                value = query,
-                onValueChange = { query = it },
-                label = { Text("Enter Movie Title") },
-                modifier = Modifier.fillMaxWidth()
-            )
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    OutlinedTextField(
+                        value = query,
+                        onValueChange = { query = it },
+                        placeholder = { Text("Enter Movie Title") },
+                        textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
+                        colors = TextFieldDefaults.colors(
+                            unfocusedTextColor = Color.Gray,
+                            focusedTextColor = Color.Gray,
+                            focusedContainerColor = Color(0xFF212121),
+                            unfocusedContainerColor = Color(0xFF212121),
+                            cursorColor = Color.White,
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent
+                        ),
+                        shape = RoundedCornerShape(15.dp),
+                        modifier = Modifier
+                            .width(350.dp)
+                            .height(56.dp)
+                    )
 
-            Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
-            Button(onClick = {
-                scope.launch {
-                    if (query.isNotBlank()) {
-                        val movies = searchMoviesByTitle(query)
-                        if (movies.isNotEmpty()) {
-                            searchResults = movies
-                        } else {
-                            Toast.makeText(context, "No movies found", Toast.LENGTH_SHORT).show()
-                        }
-                    } else {
-                        Toast.makeText(context, "Please enter a valid query", Toast.LENGTH_SHORT).show()
+                    Button(
+                        onClick = {
+                            scope.launch {
+                                if (query.isNotBlank()) {
+                                    val movies = searchMoviesByTitle(query)
+                                    if (movies.isNotEmpty()) {
+                                        searchResults = movies
+                                    } else {
+                                        Toast.makeText(context, "No movies found", Toast.LENGTH_SHORT).show()
+                                    }
+                                } else {
+                                    Toast.makeText(context, "Please enter a valid query", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF009DFF),
+                            contentColor = Color.White
+                        ),
+                        modifier = Modifier
+                            .width(150.dp)
+                            .height(50.dp)
+                    ) {
+                        Text("Search", fontSize = 15.sp)
                     }
                 }
-            }) {
-                Text("Search")
             }
 
             Spacer(modifier = Modifier.height(20.dp))
