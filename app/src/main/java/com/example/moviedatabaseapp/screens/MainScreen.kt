@@ -143,9 +143,10 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
             ) {
                 OutlinedTextField(
                     value = searchQuery,
-                    modifier = Modifier.height(50.dp),
+                    modifier = Modifier.height(56.dp),
                     onValueChange = { searchQuery = it },
                     placeholder = { Text("SEARCH") },
+                    textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
                     colors = TextFieldDefaults.colors(
                         unfocusedTextColor = Color.White,
                         focusedTextColor = Color.White,
@@ -158,13 +159,13 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
                     shape = RoundedCornerShape(50.dp)
                 )
 
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(10.dp))
 
                 Button(
                     onClick = {
                         navController.navigate("searchByTitle?query=${searchQuery.text}")
                     },
-                    modifier = Modifier.size(50.dp), // Make the button square
+                    modifier = Modifier.size(56.dp), // Make the button square
                     shape = RoundedCornerShape(30),
                     contentPadding = PaddingValues(0.dp), // Remove internal padding
                     colors = ButtonDefaults.buttonColors(
