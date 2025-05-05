@@ -52,6 +52,23 @@ fun SearchByTitleScreen(navController: NavController, initialQuery: String) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.Top
         ) {
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "DISCOVER MOVIES",
+                    fontSize = 25.sp,
+                    color = Color.White,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
             OutlinedTextField(
                 value = query,
                 onValueChange = { query = it },
