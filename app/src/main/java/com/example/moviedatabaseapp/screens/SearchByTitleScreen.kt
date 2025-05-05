@@ -6,8 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -17,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.moviedatabaseapp.data.MovieApiResponse
 import com.example.moviedatabaseapp.network.searchMoviesByTitle
@@ -98,39 +101,67 @@ fun MovieItem(movie: MovieApiResponse) {
         }
     }
 
-    Column(modifier = Modifier.padding(8.dp)) {
-        Row(modifier = Modifier.fillMaxWidth()) {
-            if (bitmap != null) {
-                Image(
-                    bitmap = bitmap!!.asImageBitmap(),
-                    contentDescription = "Movie Poster",
-                    modifier = Modifier
-                        .size(100.dp)
-                        .padding(end = 8.dp)
-                )
-            } else {
-                Box(
-                    modifier = Modifier
-                        .size(100.dp)
-                        .background(Color.Black),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.PlayArrow,
-                        contentDescription = "Play Icon",
-                        tint = Color.White,
-                        modifier = Modifier.size(50.dp)
+    Card(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF1B1A1A)),
+        shape = RoundedCornerShape(15.dp)
+    ) {
+        Column(modifier = Modifier.padding(15.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (bitmap != null) {
+                    Image(
+                        bitmap = bitmap!!.asImageBitmap(),
+                        contentDescription = "Movie Poster",
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(end = 8.dp)
                     )
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(end = 8.dp)
+                            .background(Color.Black),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.PlayArrow,
+                            contentDescription = "Play Icon",
+                            tint = Color.White,
+                            modifier = Modifier.size(50.dp)
+                        )
+                    }
+                }
+                Column {
+                    Text(
+                        text = movie.title,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White,
+                        fontSize = 20.sp
+                    )
+                    Text(movie.year, style = MaterialTheme.typography.bodyMedium, color = Color.White)
+                    Text(movie.genre, style = MaterialTheme.typography.bodySmall, color = Color.White)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Star Icon",
+                            tint = Color(0xFFFFB700),
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = movie.imdbRating,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = Color.White
+                        )
+                    }
                 }
             }
-            Column {
-                Text("Title: ${movie.title}", style = MaterialTheme.typography.bodyLarge, color = Color.White)
-                Text("Year: ${movie.year}", style = MaterialTheme.typography.bodyMedium, color = Color.White)
-                Text("Runtime: ${movie.runtime}", style = MaterialTheme.typography.bodySmall, color = Color.White)
-                Text("Genre: ${movie.genre}", style = MaterialTheme.typography.bodySmall, color = Color.White)
-                Text("IMDb Rating: ${movie.imdbRating}", style = MaterialTheme.typography.bodySmall, color = Color.White)
-            }
         }
-        Divider(modifier = Modifier.padding(vertical = 8.dp), color = Color.Gray)
     }
 }
