@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SearchByTitleScreen(navController: NavController, initialQuery: String) {
     var query by rememberSaveable { mutableStateOf(initialQuery) }
-    var searchResults by remember { mutableStateOf<List<MovieApiResponse>>(emptyList()) }
+    var searchResults by rememberSaveable { mutableStateOf<List<MovieApiResponse>>(emptyList()) }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
