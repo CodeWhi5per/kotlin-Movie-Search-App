@@ -121,7 +121,7 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(100.dp))
+            Spacer(modifier = Modifier.height(120.dp))
 
             Image(
                 painter = painterResource(id = R.drawable.background),
@@ -129,10 +129,10 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .width(700.dp)
-                    .height(280.dp)
+                    .height(260.dp)
             )
 
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(40.dp))
 
             // Add TextField
             Row(

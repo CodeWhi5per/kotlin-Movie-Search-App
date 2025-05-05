@@ -33,7 +33,8 @@ suspend fun getMovieFromApi(title: String): MovieApiResponse? = withContext(Disp
                 writer = json.getString("Writer"),
                 actors = json.getString("Actors"),
                 plot = json.getString("Plot"),
-                poster = json.getString("Poster")
+                poster = json.getString("Poster"),
+                imdbRating = json.getString("imdbRating")
             )
         } else {
             Log.e("API_ERROR", "Error: ${json.getString("Error")}")
@@ -54,34 +55,36 @@ suspend fun searchMoviesByTitle(query: String): List<MovieApiResponse> = withCon
 
     return@withContext try {
         val response = connection.inputStream.bufferedReader().readText()
-        Log.d("API_RESPONSE", response)
         val json = JSONObject(response)
 
         if (json.getString("Response") == "True") {
             val searchResults = json.getJSONArray("Search")
             List(searchResults.length()) { index ->
                 val movie = searchResults.getJSONObject(index)
+                val detailsUrl = URL("http://www.omdbapi.com/?i=${movie.getString("imdbID")}&apikey=$apiKey")
+                val detailsResponse = detailsUrl.openConnection().getInputStream().bufferedReader().readText()
+                val detailsJson = JSONObject(detailsResponse)
+
                 MovieApiResponse(
-                    imdbID = movie.getString("imdbID"),
-                    title = movie.getString("Title"),
-                    year = movie.getString("Year"),
-                    rated = "",
-                    released = "",
-                    runtime = "",
-                    genre = "",
-                    director = "",
-                    writer = "",
-                    actors = "",
-                    plot = "",
-                    poster = movie.getString("Poster")
+                    imdbID = detailsJson.getString("imdbID"),
+                    title = detailsJson.getString("Title"),
+                    year = detailsJson.getString("Year"),
+                    rated = detailsJson.optString("Rated", ""),
+                    released = detailsJson.optString("Released", ""),
+                    runtime = detailsJson.optString("Runtime", ""),
+                    genre = detailsJson.optString("Genre", ""),
+                    director = detailsJson.optString("Director", ""),
+                    writer = detailsJson.optString("Writer", ""),
+                    actors = detailsJson.optString("Actors", ""),
+                    plot = detailsJson.optString("Plot", ""),
+                    poster = detailsJson.optString("Poster", ""),
+                    imdbRating = detailsJson.optString("imdbRating", "N/A")
                 )
             }
         } else {
-            Log.e("API_ERROR", "Error: ${json.getString("Error")}")
             emptyList()
         }
     } catch (e: Exception) {
-        Log.e("API_ERROR", "Exception: ${e.message}")
         emptyList()
     } finally {
         connection.disconnect()
