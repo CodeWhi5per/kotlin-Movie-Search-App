@@ -191,7 +191,9 @@ fun SearchSection(
     ) {
         OutlinedTextField(
             value = searchQuery,
-            modifier = Modifier.height(56.dp),
+            modifier = Modifier
+                .weight(1f)
+                .height(56.dp),
             onValueChange = onSearchQueryChange,
             placeholder = { Text("SEARCH") },
             textStyle = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp),
@@ -213,7 +215,9 @@ fun SearchSection(
             onClick = {
                 navController.navigate("searchByTitle?query=${searchQuery.text}")
             },
-            modifier = Modifier.size(56.dp),
+            modifier = Modifier
+                .height(56.dp)
+                .width(56.dp),
             shape = RoundedCornerShape(20),
             contentPadding = PaddingValues(0.dp),
             colors = ButtonDefaults.buttonColors(
@@ -239,7 +243,8 @@ fun ActionButtons(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
     ) {
         Button(
             onClick = {
@@ -252,7 +257,9 @@ fun ActionButtons(
                 containerColor = Color(0xFF009DFF),
                 contentColor = Color.White
             ),
-            modifier = Modifier.width(250.dp).height(50.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
         ) {
             Text("ADD MOVIES TO DB", fontSize = 15.sp)
         }
@@ -262,7 +269,9 @@ fun ActionButtons(
                 containerColor = Color(0xFF009DFF),
                 contentColor = Color.White
             ),
-            modifier = Modifier.width(250.dp).height(50.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
         ) {
             Text("SEARCH FOR MOVIES", fontSize = 15.sp)
         }
@@ -272,7 +281,9 @@ fun ActionButtons(
                 containerColor = Color(0xFF009DFF),
                 contentColor = Color.White
             ),
-            modifier = Modifier.width(250.dp).height(50.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
         ) {
             Text(text = "SEARCH FOR ACTORS", fontSize = 15.sp)
         }
