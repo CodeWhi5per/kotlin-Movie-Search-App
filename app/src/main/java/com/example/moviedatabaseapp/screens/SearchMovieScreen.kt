@@ -32,8 +32,8 @@ import java.net.URL
 @Composable
 fun SearchMovieScreen(movieDao: MovieDao) {
     var title by rememberSaveable { mutableStateOf("") }
-    var movieResult by remember { mutableStateOf<MovieApiResponse?>(null) }
-    var posterBitmap by remember { mutableStateOf<Bitmap?>(null) }
+    var movieResult by rememberSaveable { mutableStateOf<MovieApiResponse?>(null) }
+    var posterBitmap by rememberSaveable { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 

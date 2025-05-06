@@ -1,5 +1,9 @@
 package com.example.moviedatabaseapp.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class MovieApiResponse(
     val imdbID: String,
     val title: String,
@@ -14,4 +18,4 @@ data class MovieApiResponse(
     val plot: String,
     val poster: String,
     val imdbRating: String
-)
+) : Parcelable
