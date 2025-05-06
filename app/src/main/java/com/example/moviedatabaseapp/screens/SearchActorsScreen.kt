@@ -26,6 +26,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SearchActorsScreen(movieDao: MovieDao, navController: NavController) {
+
+    // State variables to manage actor name input, search results, and search button click
+
     var actorName by rememberSaveable { mutableStateOf("") }
     var searchResults by rememberSaveable { mutableStateOf<List<Movie>>(emptyList()) }
     var isSearchClicked by rememberSaveable { mutableStateOf(false) }
@@ -46,6 +49,7 @@ fun SearchActorsScreen(movieDao: MovieDao, navController: NavController) {
         ) {
             Spacer(modifier = Modifier.height(30.dp))
 
+            // Title for the screen
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
@@ -60,6 +64,7 @@ fun SearchActorsScreen(movieDao: MovieDao, navController: NavController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            // Input field for actor name
             OutlinedTextField(
                 value = actorName,
                 onValueChange = { actorName = it },
@@ -82,11 +87,14 @@ fun SearchActorsScreen(movieDao: MovieDao, navController: NavController) {
 
             Spacer(modifier = Modifier.height(10.dp))
 
+            // Search button to trigger actor search
             Button(
                 onClick = {
                     scope.launch {
                         isSearchClicked = true
                         if (actorName.isNotBlank()) {
+
+                            // Fetch movies by actor name from the database
                             movieDao.findMoviesByActor(actorName).collect { movies ->
                                 searchResults = movies
                             }
@@ -108,6 +116,7 @@ fun SearchActorsScreen(movieDao: MovieDao, navController: NavController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            // Display search results or a message if no results are found
             if (isSearchClicked) {
                 if (searchResults.isNotEmpty()) {
                     Box(
@@ -119,7 +128,7 @@ fun SearchActorsScreen(movieDao: MovieDao, navController: NavController) {
                             modifier = Modifier.fillMaxSize()
                         ) {
                             items(searchResults) { movie ->
-                                MovieItem(movie)
+                                MovieItem(movie) // Display each movie in the results
                             }
                         }
                     }
@@ -135,7 +144,7 @@ fun SearchActorsScreen(movieDao: MovieDao, navController: NavController) {
 fun MovieItem(movie: Movie) {
     var bitmap by remember { mutableStateOf<android.graphics.Bitmap?>(null) }
 
-    // Load the image asynchronously
+    // Load the movie poster image asynchronously
     LaunchedEffect(movie.poster) {
         if (movie.poster.isNotBlank() && movie.poster != "N/A") {
             bitmap = loadImageFromUrl(movie.poster)
@@ -154,6 +163,7 @@ fun MovieItem(movie: Movie) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                // Display the movie poster or a placeholder if the image is not available
                 if (bitmap != null) {
                     Image(
                         bitmap = bitmap!!.asImageBitmap(),
@@ -178,6 +188,8 @@ fun MovieItem(movie: Movie) {
                         )
                     }
                 }
+
+                // Display movie details
                 Column {
                     Text(
                         text = movie.title,

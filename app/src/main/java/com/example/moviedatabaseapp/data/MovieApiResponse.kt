@@ -3,6 +3,8 @@ package com.example.moviedatabaseapp.data
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+// Annotates the class to make it Parcelable, allowing it to be passed between Android components
+
 @Parcelize
 data class MovieApiResponse(
     val imdbID: String,
@@ -18,4 +20,4 @@ data class MovieApiResponse(
     val plot: String,
     val poster: String,
     val imdbRating: String
-) : Parcelable
+) : Parcelable  // Implements Parcelable for easy data transfer

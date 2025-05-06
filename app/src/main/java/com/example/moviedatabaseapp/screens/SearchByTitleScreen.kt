@@ -27,11 +27,14 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SearchByTitleScreen(navController: NavController, initialQuery: String) {
+
+    // State variables to manage the search query and results
     var query by rememberSaveable { mutableStateOf(initialQuery) }
     var searchResults by rememberSaveable { mutableStateOf<List<MovieApiResponse>>(emptyList()) }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
+    // Automatically trigger search if an initial query is provided
     LaunchedEffect(initialQuery) {
         if (initialQuery.isNotBlank()) {
             scope.launch {
@@ -55,6 +58,7 @@ fun SearchByTitleScreen(navController: NavController, initialQuery: String) {
 
             Spacer(modifier = Modifier.height(30.dp))
 
+            // Title of the screen
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
@@ -69,6 +73,7 @@ fun SearchByTitleScreen(navController: NavController, initialQuery: String) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            // Search input field
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
@@ -98,6 +103,7 @@ fun SearchByTitleScreen(navController: NavController, initialQuery: String) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
+                    // Search button
                     Button(
                         onClick = {
                             scope.launch {
@@ -128,6 +134,7 @@ fun SearchByTitleScreen(navController: NavController, initialQuery: String) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            // Display search results in a list
             LazyColumn {
                 items(searchResults) { movie ->
                     MovieItem(movie)
@@ -142,7 +149,7 @@ fun MovieItem(movie: MovieApiResponse) {
     val context = LocalContext.current
     var bitmap by remember { mutableStateOf<android.graphics.Bitmap?>(null) }
 
-    // Load the image asynchronously
+    // Load the movie poster image asynchronously
     LaunchedEffect(movie.poster) {
         if (movie.poster.isNotBlank() && movie.poster != "N/A") {
             bitmap = loadImageFromUrl(movie.poster)
@@ -161,6 +168,7 @@ fun MovieItem(movie: MovieApiResponse) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                // Display the movie poster or a placeholder if unavailable
                 if (bitmap != null) {
                     Image(
                         bitmap = bitmap!!.asImageBitmap(),
@@ -185,6 +193,7 @@ fun MovieItem(movie: MovieApiResponse) {
                         )
                     }
                 }
+                // Display movie details
                 Column {
                     Text(
                         text = movie.title,

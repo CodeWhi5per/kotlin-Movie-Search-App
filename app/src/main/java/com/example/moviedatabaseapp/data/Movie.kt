@@ -3,9 +3,11 @@ package com.example.moviedatabaseapp.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "movies")
+// Define a Room database entity representing a movie
+
+@Entity(tableName = "movies") // Specifies the table name in the database
 data class Movie(
-    @PrimaryKey val imdbID: String,
+    @PrimaryKey val imdbID: String,  // Primary key
     val title: String,
     val year: String,
     val rated: String,

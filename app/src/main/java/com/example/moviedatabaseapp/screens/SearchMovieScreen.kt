@@ -31,6 +31,8 @@ import java.net.URL
 
 @Composable
 fun SearchMovieScreen(movieDao: MovieDao) {
+
+    // State variables to hold user input and API results
     var title by rememberSaveable { mutableStateOf("") }
     var movieResult by rememberSaveable { mutableStateOf<MovieApiResponse?>(null) }
     var posterBitmap by rememberSaveable { mutableStateOf<Bitmap?>(null) }
@@ -49,6 +51,7 @@ fun SearchMovieScreen(movieDao: MovieDao) {
         ) {
             Spacer(modifier = Modifier.height(30.dp))
 
+            // Title text at the top of the screen
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
@@ -63,6 +66,7 @@ fun SearchMovieScreen(movieDao: MovieDao) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            // Input field and button for searching movies
             Box(
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -71,6 +75,7 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    // Input field for movie title
                     OutlinedTextField(
                         value = title,
                         onValueChange = { title = it },
@@ -93,6 +98,7 @@ fun SearchMovieScreen(movieDao: MovieDao) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
+                    // Button to trigger movie search
                     Button(
                         onClick = {
                             scope.launch {
@@ -120,6 +126,7 @@ fun SearchMovieScreen(movieDao: MovieDao) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
+            // Display movie details if a result is found
             movieResult?.let {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize()
@@ -133,6 +140,8 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                             shape = RoundedCornerShape(15.dp)
                         ) {
                             Column(modifier = Modifier.padding(15.dp)) {
+
+                                // Display movie poster if available
                                 posterBitmap?.let { bitmap ->
                                     Image(
                                         bitmap = bitmap.asImageBitmap(),
@@ -143,6 +152,8 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                     )
                                 }
                                 Spacer(modifier = Modifier.height(30.dp))
+
+                                // Display movie details in rows
                                 Row(verticalAlignment = Alignment.Top) {
                                     Spacer(modifier = Modifier.width(15.dp))
                                     Text(
@@ -278,6 +289,8 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                     )
                                 }
                                 Spacer(modifier = Modifier.height(30.dp))
+
+                                // Display movie plot
                                 Row(verticalAlignment = Alignment.Top) {
                                     Icon(
                                         imageVector = Icons.Default.Star,
@@ -293,6 +306,8 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                     )
                                 }
                                 Spacer(modifier = Modifier.height(30.dp))
+
+                                // Button to save movie to the database
                                 Button(
                                     onClick = {
                                         scope.launch {
@@ -334,6 +349,7 @@ fun SearchMovieScreen(movieDao: MovieDao) {
     }
 }
 
+// Function to load an image from a URL
 suspend fun loadImageFromUrl(url: String): Bitmap? {
     return withContext(Dispatchers.IO) {
         try {

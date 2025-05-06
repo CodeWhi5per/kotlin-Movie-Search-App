@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 
+// Hardcoded list of movies to be added to the database
 val hardcodedMovies = listOf(
     Movie(
         imdbID = "tt0111161",
@@ -114,12 +115,14 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
+    // Main container for the screen
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
     ) {
         if (isLandscape) {
+            // Layout for landscape orientation
             Row(
                 modifier = Modifier
                     .fillMaxSize()
@@ -127,6 +130,7 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                // Background image
                 Image(
                     painter = painterResource(id = R.drawable.background),
                     contentDescription = "Background Image",
@@ -135,7 +139,7 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
                         .width(350.dp)
                         .height(260.dp)
                 )
-
+                // Search and action buttons
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
@@ -149,6 +153,7 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
                 }
             }
         } else {
+            // Layout for portrait orientation
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -158,6 +163,7 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
             ) {
                 Spacer(modifier = Modifier.height(120.dp))
 
+                // Background image
                 Image(
                     painter = painterResource(id = R.drawable.background),
                     contentDescription = "Background Image",
@@ -169,6 +175,7 @@ fun MainScreen(navController: NavController, movieDao: MovieDao) {
 
                 Spacer(modifier = Modifier.height(40.dp))
 
+                // Search and action buttons
                 SearchSection(navController, searchQuery) { searchQuery = it }
                 Spacer(modifier = Modifier.height(50.dp))
                 ActionButtons(navController, movieDao, scope, context)
@@ -183,12 +190,14 @@ fun SearchSection(
     searchQuery: TextFieldValue,
     onSearchQueryChange: (TextFieldValue) -> Unit
 ) {
+    // Search bar and button
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // Search input field
         OutlinedTextField(
             value = searchQuery,
             modifier = Modifier
@@ -211,6 +220,7 @@ fun SearchSection(
 
         Spacer(modifier = Modifier.width(10.dp))
 
+        // Search button
         Button(
             onClick = {
                 navController.navigate("searchByTitle?query=${searchQuery.text}")
@@ -241,11 +251,13 @@ fun ActionButtons(
     scope: CoroutineScope,
     context: Context
 ) {
+    // Buttons for various actions
     Column(
         verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
     ) {
+        // Button to add hardcoded movies to the database
         Button(
             onClick = {
                 scope.launch {
@@ -263,6 +275,7 @@ fun ActionButtons(
         ) {
             Text("ADD MOVIES TO DB", fontSize = 15.sp)
         }
+        // Button to navigate to the movie search screen
         Button(
             onClick = { navController.navigate("searchMovie") },
             colors = ButtonDefaults.buttonColors(
@@ -275,6 +288,7 @@ fun ActionButtons(
         ) {
             Text("SEARCH FOR MOVIES", fontSize = 15.sp)
         }
+        // Button to navigate to the actor search screen
         Button(
             onClick = { navController.navigate("searchActors") },
             colors = ButtonDefaults.buttonColors(
