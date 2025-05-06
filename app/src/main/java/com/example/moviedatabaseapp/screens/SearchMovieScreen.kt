@@ -149,7 +149,7 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                         text = "Title:",
                                         color = Color.White,
                                         fontSize = 18.sp,
-                                        modifier = Modifier.width(100.dp) // Adjust width for alignment
+                                        modifier = Modifier.width(100.dp)
                                     )
                                     Text(
                                         text = it.title,
