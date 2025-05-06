@@ -155,7 +155,13 @@ fun SearchMovieScreen(movieDao: MovieDao) {
 
                                 // Display movie details in rows
                                 Row(verticalAlignment = Alignment.Top) {
-                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Icon(
+                                        imageVector = Icons.Default.Movie,
+                                        contentDescription = "Title Icon",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
                                     Text(
                                         text = "Title:",
                                         color = Color.White,
@@ -170,7 +176,13 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                 }
                                 Spacer(modifier = Modifier.height(15.dp))
                                 Row(verticalAlignment = Alignment.Top) {
-                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Icon(
+                                        imageVector = Icons.Default.CalendarToday,
+                                        contentDescription = "Year Icon",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
                                     Text(
                                         text = "Year:",
                                         color = Color.White,
@@ -185,7 +197,13 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                 }
                                 Spacer(modifier = Modifier.height(15.dp))
                                 Row(verticalAlignment = Alignment.Top) {
-                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Icon(
+                                        imageVector = Icons.Default.Star,
+                                        contentDescription = "Rated Icon",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
                                     Text(
                                         text = "Rated:",
                                         color = Color.White,
@@ -200,7 +218,13 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                 }
                                 Spacer(modifier = Modifier.height(15.dp))
                                 Row(verticalAlignment = Alignment.Top) {
-                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Icon(
+                                        imageVector = Icons.Default.DateRange,
+                                        contentDescription = "Released Icon",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
                                     Text(
                                         text = "Released:",
                                         color = Color.White,
@@ -215,7 +239,13 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                 }
                                 Spacer(modifier = Modifier.height(15.dp))
                                 Row(verticalAlignment = Alignment.Top) {
-                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Icon(
+                                        imageVector = Icons.Default.Timer,
+                                        contentDescription = "Runtime Icon",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
                                     Text(
                                         text = "Runtime:",
                                         color = Color.White,
@@ -230,7 +260,13 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                 }
                                 Spacer(modifier = Modifier.height(15.dp))
                                 Row(verticalAlignment = Alignment.Top) {
-                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Icon(
+                                        imageVector = Icons.Default.Category,
+                                        contentDescription = "Genre Icon",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
                                     Text(
                                         text = "Genre:",
                                         color = Color.White,
@@ -245,7 +281,13 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                 }
                                 Spacer(modifier = Modifier.height(15.dp))
                                 Row(verticalAlignment = Alignment.Top) {
-                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Icon(
+                                        imageVector = Icons.Default.Person,
+                                        contentDescription = "Director Icon",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
                                     Text(
                                         text = "Director:",
                                         color = Color.White,
@@ -260,7 +302,13 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                 }
                                 Spacer(modifier = Modifier.height(15.dp))
                                 Row(verticalAlignment = Alignment.Top) {
-                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Icon(
+                                        imageVector = Icons.Default.Edit,
+                                        contentDescription = "Writer Icon",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
                                     Text(
                                         text = "Writer:",
                                         color = Color.White,
@@ -275,7 +323,13 @@ fun SearchMovieScreen(movieDao: MovieDao) {
                                 }
                                 Spacer(modifier = Modifier.height(15.dp))
                                 Row(verticalAlignment = Alignment.Top) {
-                                    Spacer(modifier = Modifier.width(15.dp))
+                                    Icon(
+                                        imageVector = Icons.Default.Group,
+                                        contentDescription = "Actors Icon",
+                                        tint = Color.White,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(10.dp))
                                     Text(
                                         text = "Actors:",
                                         color = Color.White,
